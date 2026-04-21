@@ -1,106 +1,127 @@
-# Traffic Classification System
+# CN Project - Client Server Communication
 
-##  Overview
+## 📌 Overview
 
-The **Traffic Classification System** is a Computer Networks project designed to analyze and classify network traffic based on protocol types such as **TCP, UDP, and ICMP**.
-
-This project demonstrates how data packets are transmitted across a network and how they can be identified, categorized, and analyzed in real-time.
-
----
-
-##  Objectives
-
-* Understand network traffic flow
-* Identify different protocol types
-* Analyze packet-level data
-* Build a simple traffic monitoring system
+This project demonstrates a simple **client-server communication system** using Python.
+It showcases fundamental **Computer Networks concepts**, including socket programming and communication over TCP/IP.
 
 ---
 
-##  Features
+## 🚀 Features
 
-* 🔍 Detects protocol types (TCP, UDP, ICMP)
-* 📊 Maintains real-time traffic statistics
-* 📈 Displays traffic distribution
-* 🧠 Simple and beginner-friendly implementation
-
----
-
-##  Tech Stack
-
-* **Language:** Python
-* **Concepts:** Socket Programming, Packet Analysis
-* **Protocols:** TCP/IP
-* **Environment:** WSL (Ubuntu) / Linux / Windows
+* Establishes connection between client and server
+* Sends and receives messages
+* Demonstrates core networking concepts
+* Lightweight and beginner-friendly
 
 ---
 
-##  Project Structure
+## 🛠️ Technologies Used
+
+* Python
+* Socket Programming
+* TCP/IP Protocol
+
+---
+
+## 📂 Project Structure
 
 ```
-.
-├── topology.py                # Network topology setup
-├── traffic_classifier.py     # Core classification logic
-├── README.md
+├── server.py     # Server-side code
+├── client.py     # Client-side code
+├── README.md     # Documentation
 ```
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/sankgit14/repository-name.git
+cd repository-name
+```
+
+### 2. Requirements
+
+* Python 3.x installed
+* No external libraries required
 
 ---
 
 ## ▶️ How to Run
 
-### 1️⃣ Clone the repository
+### Step 1: Start the Server
 
+Open a terminal and run:
+
+```bash
+python server.py
 ```
-git clone https://github.com/YOUR-USERNAME/YOUR-REPO.git
+
+👉 The server will start and wait for incoming connections.
+
+---
+
+### Step 2: Run the Client
+
+Open **another terminal** and run:
+
+```bash
+python client.py
 ```
 
-
-
----
-
-##  Sample Output
-
-* Protocol Type: TCP / UDP / ICMP
-* Packet Count
-* Traffic Distribution Summary
+👉 The client will connect to the server.
 
 ---
 
-##  How It Works
+### Step 3: Communication
 
-The system captures network packets and analyzes their headers to determine the protocol type.
-
-* **TCP** → Reliable, connection-oriented
-* **UDP** → Fast, connectionless
-* **ICMP** → Error reporting & diagnostics
-
-Based on this, packets are classified and statistics are updated dynamically.
+* Once connected, you can send messages between client and server
+* Messages will be displayed on both terminals
 
 ---
 
-##  Future Enhancements
+## 🔄 Example Workflow
 
-* Add GUI dashboard
-* Real-time packet visualization
-* Machine Learning-based classification
-* Integration with Wireshark or Scapy
-
----
-
-##  Learning Outcomes
-
-* Deep understanding of TCP/IP protocols
-* Hands-on experience with network traffic analysis
-* Practical implementation of networking concepts
+1. Run the server
+2. Run the client
+3. Connection is established
+4. Messages are exchanged
 
 ---
 
-##  Author
+## 🧠 How It Works
 
-**Vishwas**
+* The server listens for incoming connections using sockets
+* The client initiates a connection request
+* After connection, both systems exchange data over TCP
 
 ---
 
-## ⭐ Acknowledgment
+## 🎯 Learning Outcomes
 
-This project is developed as part of a **Computer Networks academic project** to demonstrate real-world networking concepts.
+* Understanding client-server architecture
+* Hands-on socket programming
+* Basics of TCP/IP communication
+
+---
+
+## 🔮 Future Improvements
+
+* Support multiple clients (multi-threading)
+* Add GUI interface
+* Implement encryption for secure communication
+
+---
+
+## 🔗 GitHub
+
+https://github.com/sankgit14
+
+---
+
+## 🤝 Contributing
+
+Feel free to fork this repository and improve it. Pull requests are welcome!
