@@ -1,118 +1,205 @@
-# CN Project - Client Server Communication
+# 📊 SDN-Based Traffic Classification using Mininet and Ryu Controller
 
-## 📌 Overview
+## 📌 Problem Statement
 
-This project demonstrates a simple **client-server communication system** using Python.
-It showcases fundamental **Computer Networks concepts**, including socket programming and communication over TCP/IP.
+Traditional networks lack visibility into traffic types and require manual analysis to understand network behavior.
+This project implements a **Software-Defined Networking (SDN) based traffic classification system** using **Mininet** and the **Ryu OpenFlow controller**.
 
----
-
-## 🚀 Features
-
-* Establishes connection between client and server
-* Sends and receives messages
-* Demonstrates core networking concepts
-* Lightweight and beginner-friendly
+The controller dynamically analyzes incoming packets and classifies them into **TCP, UDP, ICMP, and OTHER** categories, demonstrating centralized and intelligent network monitoring.
 
 ---
 
-## 🛠️ Technologies Used
+## 🎯 Objectives
 
-* Python
-* Socket Programming
-* TCP/IP Protocol
+* Implement traffic classification using OpenFlow controller
+* Identify packet types (TCP, UDP, ICMP, OTHER)
+* Maintain real-time traffic statistics (packets & bytes)
+* Dynamically install flow rules for efficient forwarding
+* Display periodic traffic reports
+* Understand protocol distribution in a network
 
 ---
 
-## 📂 Project Structure
+## 🌐 Network Topology
 
 ```
-├── server.py     # Server-side code
-├── client.py     # Client-side code
-├── README.md     # Documentation
+        h1 (10.0.0.1)
+             |
+        h2 (10.0.0.2)
+             |
+        s1 (OpenFlow Switch)  <------>  Ryu Controller
+          /      |       \
+     h3 (10.0.0.3)  h4 (10.0.0.4)
 ```
+
+* 4 hosts connected to 1 switch
+* Remote Ryu controller manages traffic classification
+* All packets are analyzed at the controller
 
 ---
 
-## ⚙️ Setup Instructions
+## ⚙️ Setup & Installation
 
-### 1. Clone the Repository
+### ✅ Prerequisites
+
+* Ubuntu 20.04 / 22.04
+* Mininet
+* Ryu Controller
+* Python 3
+
+---
+
+### 🔹 Step 1 — Install Mininet
 
 ```bash
-git clone https://github.com/sankgit14/repository-name.git
-cd repository-name
+sudo apt update
+sudo apt install mininet -y
 ```
-
-### 2. Requirements
-
-* Python 3.x installed
-* No external libraries required
 
 ---
 
-## ▶️ How to Run
-
-### Step 1: Start the Server
-
-Open a terminal and run:
+### 🔹 Step 2 — Install Ryu Controller
 
 ```bash
-python server.py
+pip install ryu
 ```
-
-👉 The server will start and wait for incoming connections.
 
 ---
 
-### Step 2: Run the Client
-
-Open **another terminal** and run:
+### 🔹 Step 3 — Clone Repository
 
 ```bash
-python client.py
+git clone https://github.com/your-username/traffic-classifier.git
+cd traffic-classifier
 ```
 
-👉 The client will connect to the server.
+---
+
+## ▶️ Execution Steps
+
+### 🖥️ Terminal 1 — Start Ryu Controller
+
+```bash
+ryu-manager traffic_classifier.py
+```
+
+✅ Expected Output:
+
+```
+Switch connected
+[CLASSIFIED: TCP/UDP/ICMP] logs appearing
+```
 
 ---
 
-### Step 3: Communication
+### 🖥️ Terminal 2 — Start Mininet Topology
 
-* Once connected, you can send messages between client and server
-* Messages will be displayed on both terminals
+```bash
+sudo python3 topology.py
+```
+
+👉 Topology info from your file :
+
+* 4 hosts (h1–h4) connected to switch s1
+* Remote controller is used
 
 ---
 
-## 🔄 Example Workflow
+## 🧪 Test Scenarios
 
-1. Run the server
-2. Run the client
-3. Connection is established
-4. Messages are exchanged
+### ✅ Test 1 — Ping (ICMP Traffic)
+
+```bash
+mininet> h1 ping h2 -c 4
+```
+
+👉 Classified as: **ICMP**
+
+---
+
+### ✅ Test 2 — TCP Traffic
+
+```bash
+mininet> h1 iperf -c 10.0.0.2
+```
+
+👉 Classified as: **TCP**
+
+---
+
+### ✅ Test 3 — UDP Traffic
+
+```bash
+mininet> h1 iperf -c 10.0.0.2 -u
+```
+
+👉 Classified as: **UDP**
+
+---
+
+### 🔍 Test 4 — Observe Classification Logs
+
+Controller output (from your code ):
+
+```
+[CLASSIFIED: TCP] src=xx dst=xx
+[CLASSIFIED: UDP] src=xx dst=xx
+[CLASSIFIED: ICMP] src=xx dst=xx
+```
+
+---
+
+### 📊 Test 5 — Traffic Report (Auto Generated)
+
+Every 10 seconds:
+
+```
+========= Traffic Classification Report =========
+Protocol     Packets        Bytes     Share
+---------------------------------------------
+TCP              xx           xx       xx%
+UDP              xx           xx       xx%
+ICMP             xx           xx       xx%
+OTHER            xx           xx       xx%
+=================================================
+```
+
+---
+
+## 📈 Expected Results
+
+| Test        | Result                    |
+| ----------- | ------------------------- |
+| Ping        | ICMP packets classified   |
+| iperf (TCP) | TCP traffic detected      |
+| iperf (UDP) | UDP traffic detected      |
+| Logs        | Real-time classification  |
+| Report      | Periodic statistics shown |
 
 ---
 
 ## 🧠 How It Works
 
-* The server listens for incoming connections using sockets
-* The client initiates a connection request
-* After connection, both systems exchange data over TCP
+* Switch sends packets to controller (Packet-In)
+* Controller inspects packet headers
+* Identifies protocol using:
+
+  * TCP → port-based detection
+  * UDP → port-based detection
+  * ICMP → ping packets
+* Updates statistics (count & bytes)
+* Installs flow rules to optimize forwarding
+* Periodically prints traffic report
 
 ---
 
-## 🎯 Learning Outcomes
+## 🚀 Future Improvements
 
-* Understanding client-server architecture
-* Hands-on socket programming
-* Basics of TCP/IP communication
-
----
-
-## 🔮 Future Improvements
-
-* Support multiple clients (multi-threading)
-* Add GUI interface
-* Implement encryption for secure communication
+* Add graphical dashboard for visualization
+* Integrate AI-based traffic analysis
+* Support multiple switches
+* Store logs in database
+* Real-time web monitoring
 
 ---
 
@@ -124,4 +211,6 @@ https://github.com/sankgit14
 
 ## 🤝 Contributing
 
-Feel free to fork this repository and improve it. Pull requests are welcome!
+Feel free to fork this project and enhance it.
+Pull requests are welcome!
+
